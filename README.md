@@ -8,7 +8,8 @@ Small, standalone HBase for development. With REST and Thrift servers.
 
 * 8080/8085 - REST API & Web UI
 * 9090/9095 - Thrift API & Web UI
-* 16000/16010 - HBase Master & Web UI
+* 60000/60010 - HBase Master & Web UI
+* 60020/60030 - HBase RegionServer & Web UI
 * 2181 - ZooKeeper
 
 # Volumes
@@ -20,15 +21,17 @@ HBase will store its data at `/data/hbase`, ZooKeeper at `/data/zookeeper`.
 
 Pull it:
 
-	docker pull olegfedoseev/hbase-standalone
+	docker pull olegfedoseev/hbase-standalone:0.98.21
 
 Run it:
-
-	docker run -it \
-		-p 8080:8080 \
-		-p 8085:8085 \
+	docker run -it --rm \
+		--name hbase \
+		--hostname hbase \
 		-p 9090:9090 \
 		-p 9095:9095 \
-		-p 16010:16010 \
 		-p 2181:2181 \
-		olegfedoseev/hbase-standalone
+		-p 60000:60000 \
+		-p 60010:60010 \
+		-p 60020:60020 \
+		-p 60030:60030 \
+		olegfedoseev/hbase-standalone:0.98.21
